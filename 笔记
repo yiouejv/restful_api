@@ -1,0 +1,31 @@
+Flask-restful 笔记
+
+### 安装
+    pip install flask_restful
+
+### 基本使用
+    1. 从flask_result 中导入APi, 来创建一个api对象
+    2. 写一个视图函数，让他继承自Resource, 然后在视图函数内
+        定义相应的方法, 比如你想要这个视图只能采用post请求，
+        那么定义一个post()方法
+    3. 使用api.add_resource(resource, *urls, **kwargs) 来添加视图与url
+    视图代码如下：
+    ''' python
+    api = Api(app)
+
+    class LoginView(Resource):
+        def post(self, username=None):
+        return {"username": "yiouejv"}
+
+
+    api.add_resource(LoginView, '/login/<username>', '/regist/', endpoint='login')
+    '''
+    注意事项：
+        * 如果你想要返回json数据，那么使用flask_restful, 如果你想要渲染模板，那么还是
+          使用render_tempalte的方式
+        * url还是和之前的一样，可以传递参数，也和之前有点不一样，可以传递多个url
+        * endpoint是用来给url_for反转url的时候指定的，如果不屑endpoint，那么将会使用
+          视图函数的名字的小写字母来作为endpoint的值
+
+###
+
