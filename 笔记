@@ -27,5 +27,35 @@ Flask-restful 笔记
         * endpoint是用来给url_for反转url的时候指定的，如果不屑endpoint，那么将会使用
           视图函数的名字的小写字母来作为endpoint的值
 
-###
+
+
+### restful 标准化返回参数
+    1. 定义好接口需要返回的字段字典
+        例如:
+            resource_fields = {
+                'title': fields.String,
+                'content': fields.String
+            }
+    2. 再用marshal_with 装饰器装饰具体的方法
+        例如：
+            @marshal_with(resource_fields)
+            def get(self):
+                return {'title': 'xxx'}
+        在接口中定义好了需要返回的字段类型后，在函数内即使没有返回，实际上也会返回一个None
+    3.  可以直接返回一个示例对象，restful底层会自动去示例对象中取相应的字段值，拼成字典往前端
+        返回
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

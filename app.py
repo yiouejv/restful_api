@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restful import Api, Resource, reqparse, inputs
+from flask_restful import Api, Resource, reqparse, inputs, fields, marshal_with
 from config import session as db_session
 
 
@@ -7,6 +7,24 @@ app = Flask(__name__)
 
 # 用api来绑定app
 api = Api(app)
+
+
+class ArticleView(Resource):
+    resource_fields = {
+        'title': fields.String,
+        'content': fields.String
+    }
+
+    # restful规范中，要求，定义好了返回的参数
+    # 即使这个参数没有值，也应该返回值， 返回一个None
+
+    @marshal_with(resource_fields)
+    def get(self):
+        return {'title': 'xxx'}
+
+
+api.add_resource(ArticleView, '/article/', endpoint='article')
+
 
 
 class LoginView(Resource):
