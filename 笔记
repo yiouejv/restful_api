@@ -75,6 +75,15 @@ Flask-restful 笔记
     '''
 
 
+### 在flask_restful 结合蓝图使用
+    1. 首先创建一个蓝图，并在主app文件中注册
+    2. 在蓝图中创建一个Api对象，参数为第一步创建的蓝图
+        例如：
+            article_bp = Blueprint('article', __name__)
+            api = Api(article_bp)
+    3. api就可以正常使用了
+
+
 
 
 
