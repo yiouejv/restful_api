@@ -84,6 +84,20 @@ Flask-restful 笔记
     3. api就可以正常使用了
 
 
+### flask_restful 返回html模板
+    如果在restful的视图中想要返回html代码，或是模板，那么就应该使用
+    api.representation 这个装饰器来定义一个函数，在这个函数中，应该
+    对html代码进行一个封装，再返回，示例代码如下：
+
+    @aip.representation('text/html')
+    def output_html(data, code, headers):
+        print(data)
+        # 在representation装饰的函数中，必须返回一个Response对象
+        resp = make_response(data)
+        return resp
+
+
+
 
 
 
