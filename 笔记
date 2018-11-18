@@ -47,6 +47,32 @@ Flask-restful 笔记
 
 
 
+### restful 标准话返回参数的复杂结构
+    有时候想要在返回的数据格式中，形成比较复杂的结构，那么可以使用一些特殊的字段来实现，比如
+    要在一个字段中放置一个列表，那么可以使用fields.List，比如在一个字段下面又是一个字典，那么
+    可以使用fields.Nested。
+    '''
+        class ArticleView(Resource):
+            resource_fields = {
+                'article_title': fields.String(attribute='title'),  # 重命名属性
+                'content': fields.String,
+                'author': fields.Nested({
+                    'username': fields.String,
+                    'email': fields.String,
+                }),
+                'tags': fields.List(fields.Nested({
+                    'id': fields.Integer,
+                    'name': fields.String,
+                })),
+                'read_count': fields.Integer(default=80),  # 设置默认值
+            }
+
+            @marshal_with(resource_fields)
+            def get(self, article_id):
+                article = db_session.query(Article).filter(Article.id==article_id).first()
+                return article
+
+    '''
 
 
 
